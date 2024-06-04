@@ -78,7 +78,7 @@ export async function generateAccount() {
 // import account: "importAccount"
 export async function importAccount() {
   try {
-    const account = await window.ethereum.request({
+    await window.ethereum.request({
       method: 'wallet_invokeSnap',
       params: {
         snapId: `npm:${PACKAGE_NAME}`,
