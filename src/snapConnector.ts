@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export async function installSnap() {
+export async function installSnap(): Promise<boolean> {
   // This resolves to the value of window.ethereum or null
   const provider: any = await detectEthereumProvider();
 
@@ -33,8 +33,16 @@ export async function installSnap() {
     } catch (error) {
       console.error(`Error while installing ${PACKAGE_NAME}`);
     }
+
+    // check if snap is installed
+    if(!detectPrivateClaimSnap()) {
+      console.error('Snap not installed. Please try again.');
+      return false;
+    }
+    return true;
   } else {
     console.error('Please install MetaMask flask first');
+    return false;
   }
 };
 
