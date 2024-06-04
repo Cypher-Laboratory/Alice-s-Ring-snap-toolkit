@@ -1,0 +1,27 @@
+{
+  "name": "@cypher-laboratory/lsag-snap-sdk",
+  "version": "0.0.5",
+  "description": "A simple sdk to interact with the LSAG snap from Cypher Lab",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf ./dist && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cypher-Laboratory/LSAG-snap-front-SDK"
+  },
+  "author": "Elli610",
+  "license": "MIT",
+  "dependencies": {
+    "@metamask/detect-provider": "^2.0.0",
+    "graphql": "^16.8.1"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.7",
+    "tsc": "^2.0.4",
+    "typescript": "^5.4.5"
+  }
+}

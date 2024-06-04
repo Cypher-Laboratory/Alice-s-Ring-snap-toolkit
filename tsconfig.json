@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "./test"
+  ],
+  "include": [
+    "src/**/*.ts" // Include all TypeScript files in the src directory
+  ]
+}
