@@ -1,6 +1,6 @@
 {
   "name": "@cypher-laboratory/lsag-snap-sdk",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A simple sdk to interact with the LSAG snap from Cypher Lab",
   "main": "dist/index.js",
   "module": "dist/index.js",

@@ -35,7 +35,7 @@ export async function installSnap(): Promise<boolean> {
     }
 
     // check if snap is installed
-    if(!detectPrivateClaimSnap()) {
+    if (!detectPrivateClaimSnap()) {
       console.error('Snap not installed. Please try again.');
       return false;
     }
@@ -152,7 +152,7 @@ export async function LSAG_signature(ring: string[], message: string, addressToU
 }
 
 // lsag sign message: "LSAG_signature"
-export async function PAC_LSAG_Signature(ring: string[], claim_contract_address: string, addressToUse: string): Promise<string> {
+export async function PAC_LSAG_Signature(ring: string[], claim_contract_address: string, addressToUse: string, airdropTier: string, chainId: string): Promise<string> {
   try {
     const signature = await window.ethereum.request({
       method: 'wallet_invokeSnap',
@@ -164,6 +164,8 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
             ring,
             claim_contract_address,
             addressToUse,
+            airdropTier,
+            chainId,
           },
         },
       },
