@@ -179,3 +179,26 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
   }
 }
 
+export async function exportKeyImages(addresses: string[], linkabilityFlag: string): Promise<{ address: string, keyImage: string, linkabilityFlag: string }[] | null> {
+  try {
+    const keyImages = await window.ethereum.request({
+      method: 'wallet_invokeSnap',
+      params: {
+        snapId: `npm:${PACKAGE_NAME}`,
+        request: {
+          method: "ExportKeyImages",
+          params: {
+            addresses,
+            linkabilityFactor: linkabilityFlag,
+          },
+        },
+      },
+    });
+    // console.log('keyImage:', JSON.parse(addresses).addresses);
+    return JSON.parse(keyImages);
+
+  } catch (error) {
+    console.error('Error while getting addresses');
+    return null;
+  }
+}
