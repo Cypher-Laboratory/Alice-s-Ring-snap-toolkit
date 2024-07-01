@@ -80,11 +80,13 @@ export async function generateAccount() {
     // alert('Account generated successfully!');
   } catch (error) {
     console.error('Error while generating account');
+    return false;
   }
+  return true;
 }
 
 // import account: "importAccount"
-export async function importAccount() {
+export async function importAccount(): Promise<boolean> {
   try {
     await window.ethereum.request({
       method: 'wallet_invokeSnap',
@@ -100,7 +102,9 @@ export async function importAccount() {
     // alert('Account imported successfully!');
   } catch (error) {
     console.error('Error while importing account');
+    return false;
   }
+  return true;
 }
 
 // get addresses of all accounts: "getAddresses"
@@ -144,7 +148,7 @@ export async function LSAG_signature(ring: string[], message: string, addressToU
     });
     console.log('signature:', signature);
     // alert('Message signed successfully!');
-    return signature.slice(1, -1);
+    return signature;
   } catch (error) {
     console.error('Error while signing message');
     return '';
@@ -200,5 +204,31 @@ export async function exportKeyImages(addresses: string[], linkabilityFlag: stri
   } catch (error) {
     console.error('Error while getting addresses');
     return null;
+  }
+}
+
+// sag sign message: "SAG_signature"
+export async function SAG_signature(ring: string[], message: string, addressToUse: string): Promise<string> {
+  try {
+    const signature = await window.ethereum.request({
+      method: 'wallet_invokeSnap',
+      params: {
+        snapId: `npm:${PACKAGE_NAME}`,
+        request: {
+          method: "SAG_Signature",
+          params: {
+            ring,
+            message,
+            addressToUse,
+          },
+        },
+      },
+    });
+    console.log('signature:', signature);
+    // alert('Message signed successfully!');
+    return signature;
+  } catch (error) {
+    console.error('Error while signing message');
+    return '';
   }
 }
