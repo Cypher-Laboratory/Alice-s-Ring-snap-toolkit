@@ -199,7 +199,7 @@ export async function exportKeyImages(addresses: string[], linkabilityFlag: stri
       },
     });
     // console.log('keyImage:', JSON.parse(addresses).addresses);
-    return JSON.parse(keyImages);
+    return keyImages;
 
   } catch (error) {
     console.error('Error while getting addresses');
