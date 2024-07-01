@@ -2,7 +2,7 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 
 
-const PACKAGE_NAME = '@cypher-laboratory/lsag-snap';
+const PACKAGE_NAME = '@cypher-laboratory/alicesring-snap';
 
 declare global {
   interface Window {
