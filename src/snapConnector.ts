@@ -120,7 +120,7 @@ export async function getAddresses(): Promise<string[]> {
         },
       },
     });
-    console.log('addresses:', JSON.parse(addresses).addresses);
+    // console.log('addresses:', JSON.parse(addresses).addresses);
     return JSON.parse(addresses).addresses;
   } catch (error) {
     console.error('Error while getting addresses');
@@ -174,7 +174,7 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
         },
       },
     });
-    console.log('signature:', signature);
+    // console.log('signature:', signature);
     // alert('Message signed successfully!');
     return signature;
   } catch (error) {
@@ -224,11 +224,57 @@ export async function SAG_signature(ring: string[], message: string, addressToUs
         },
       },
     });
-    console.log('signature:', signature);
+    // console.log('signature:', signature);
     // alert('Message signed successfully!');
     return signature;
   } catch (error) {
     console.error('Error while signing message');
     return '';
+  }
+}
+
+// silently verify lsag signature: "Verify_LSAG"
+export async function verifyLSAG(b64Signature: string): Promise<{ isValid: boolean, content: { ring: string[], challenge: string, responses: string[] } | null } | null> {
+  try {
+    const verification = await window.ethereum.request({
+      method: 'wallet_invokeSnap',
+      params: {
+        snapId: `npm:${PACKAGE_NAME}`,
+        request: {
+          method: "Verify_LSAG",
+          params: {
+            b64Signature,
+          },
+        },
+      },
+    });
+    // console.log('verification:', verification);
+    return verification;
+  } catch (error) {
+    console.error('Error while verifying signature');
+    return null;
+  }
+}
+
+// silently verify sag signature: "Verify_SAG"
+export async function verifySAG(b64Signature: string): Promise<{ isValid: boolean, content: { ring: string[], challenge: string, responses: string[] } | null } | null> {
+  try {
+    const verification = await window.ethereum.request({
+      method: 'wallet_invokeSnap',
+      params: {
+        snapId: `npm:${PACKAGE_NAME}`,
+        request: {
+          method: "Verify_SAG",
+          params: {
+            b64Signature,
+          },
+        },
+      },
+    });
+    // console.log('verification:', verification);
+    return verification;
+  } catch (error) {
+    console.error('Error while verifying signature');
+    return null;
   }
 }
