@@ -35,7 +35,7 @@ export async function installSnap(): Promise<boolean> {
     }
 
     // check if snap is installed
-    if (!detectPrivateClaimSnap()) {
+    if (!detectRingSignatureSnap()) {
       console.error('Snap not installed. Please try again.');
       return false;
     }
@@ -47,7 +47,7 @@ export async function installSnap(): Promise<boolean> {
 };
 
 
-export async function detectPrivateClaimSnap(): Promise<boolean> {
+export async function detectRingSignatureSnap(): Promise<boolean> {
   const provider: any = await detectEthereumProvider();
   const snaps = await provider?.request({
     method: 'wallet_getSnaps'
@@ -56,10 +56,8 @@ export async function detectPrivateClaimSnap(): Promise<boolean> {
   const isMySnapInstalled = Object.keys(snaps).includes(`npm:${PACKAGE_NAME}`);
 
   if (isMySnapInstalled) {
-    // console.log('privateClaim Snap is installed');
     return true;
   } else {
-    // console.log('privateClaim Snap is not installed');
     return false
   }
 
