@@ -10,16 +10,23 @@ declare global {
   }
 }
 
-export async function installSnap(): Promise<boolean> {
+export async function installSnap(devOnly = false): Promise<boolean> {
   // This resolves to the value of window.ethereum or null
   const provider: any = await detectEthereumProvider();
 
-  // web3_clientVersion returns the installed MetaMask version as a string
-  const isFlask = (
-    await provider?.request({ method: 'web3_clientVersion' })
-  )?.includes('flask'); // todo: once snap allowed by metamask, remove this check
+  if (devOnly) {
+    const isFlask = (
+      // web3_clientVersion returns the installed MetaMask version as a string
+      await provider?.request({ method: 'web3_clientVersion' })
+    )?.includes('flask'); // todo: once snap allowed by metamask, remove this check
 
-  if (provider && isFlask) {
+    if (!isFlask) {
+      console.error('Ring Signature toolkit: Please install MetaMask Flask version');
+      return false;
+    }
+  }
+
+  if (provider) {
 
     try {
       // install snap
@@ -41,7 +48,7 @@ export async function installSnap(): Promise<boolean> {
     }
     return true;
   } else {
-    console.error('Please install MetaMask flask first');
+    console.error('Ring Signature toolkit: no provider detected');
     return false;
   }
 };
